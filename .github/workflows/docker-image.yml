@@ -3,7 +3,7 @@ name: Docker Compose Action
 on: [push]
 
 jobs:
-  build:
+  build-and-upload:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
@@ -11,14 +11,9 @@ jobs:
         uses: hoverkraft-tech/compose-action@v2.0.1
         with:
           compose-file: "./docker-compose.yml"
-  upload-artifact:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - run: ls -la
       - uses: actions/upload-artifact@v4
         with:
           name: final-doc.pdf
           path: thesis_main.pdf
-
           
