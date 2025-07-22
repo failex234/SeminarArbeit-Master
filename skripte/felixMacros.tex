@@ -1,3 +1,5 @@
 \newcommand{\indirekt}[2]{
-  \footcite[Vgl.][Seite #1]{#2}
+  \ifblank{#1}
+    {\footcite[Vgl.][o.S.]{#2}}
+    {\footcite[Vgl.][Seite #1]{#2}}
 }

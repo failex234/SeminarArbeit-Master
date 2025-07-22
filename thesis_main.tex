@@ -24,14 +24,9 @@
 %-----------------------------------
 \input{skripte/meta}
 
-\newcommand{\langde}[1]{%
-   \ifde\selectlanguage{ngerman}#1\fi}
-\newcommand{\langen}[1]{%
-   \ifen\selectlanguage{english}#1\fi}
 \usepackage[utf8]{luainputenc}
-\langde{\usepackage[babel,german=quotes]{csquotes}}
-\langen{\usepackage[babel,english=british]{csquotes}}
-\ifde\usepackage[ngerman]{babel}\fi
+\usepackage[babel,german=quotes]{csquotes}
+\usepackage[ngerman]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{fancyhdr}
 \usepackage{fancybox}
@@ -58,6 +53,7 @@
 \usepackage{amsmath}
 \usepackage[table]{xcolor}
 \usepackage{marvosym}			% Verwendung von Symbolen, z.B. perfektes Eurozeichen
+\usepackage{etoolbox}
 
 \renewcommand\familydefault{\sfdefault}
 \usepackage{ragged2e}
@@ -399,7 +395,7 @@
 %-----------------------------------
 % Falls das Abkürzungsverzeichnis nicht im Inhaltsverzeichnis angezeigt werden soll
 % dann folgende Zeile auskommentieren.
-\addcontentsline{toc}{section}{\abbreHeadingName}
+\addcontentsline{toc}{section}{Abkürzungsverzeichnis}
 \input{abkuerzungen/acronyms}
 \newpage
 
@@ -409,7 +405,7 @@
 % In Overleaf führt der Einsatz des Symbolverzeichnisses zu einem Fehler, der aber ignoriert werdne kann
 % Falls das Symbolverzeichnis nicht im Inhaltsverzeichnis angezeigt werden soll
 % dann folgende Zeile auskommentieren.
-\phantomsection\addcontentsline{toc}{section}{\symheadingname}
+\phantomsection\addcontentsline{toc}{section}{Symbolverzeichnis}
 \input{skripte/symbolDef}
 \listofsymbols
 \newpage
@@ -444,8 +440,8 @@
 % Apendix / Anhang
 %-----------------------------------
 \newpage
-\section*{\AppendixName} %Überschrift "Anhang", ohne Nummerierung
-\addcontentsline{toc}{section}{\AppendixName} %Den Anhang ohne Nummer zum Inhaltsverzeichnis hinzufügen
+\section*{Anhang} %Überschrift "Anhang", ohne Nummerierung
+\addcontentsline{toc}{section}{Anhang} %Den Anhang ohne Nummer zum Inhaltsverzeichnis hinzufügen
 
 \begin{appendices}
 % Nachfolgende Änderungen erfolgten aufgrund von Issue 163
@@ -453,8 +449,8 @@
 \renewcommand\@seccntformat[1]{\csname the#1\endcsname:\quad}
 \makeatother
 \addtocontents{toc}{\protect\setcounter{tocdepth}{0}} %
-	\renewcommand{\thesection}{\AppendixName\ \arabic{section}}
-	\renewcommand\thesubsection{\AppendixName\ \arabic{section}.\arabic{subsection}}
+	\renewcommand{\thesection}{Anhang\ \arabic{section}}
+	\renewcommand\thesubsection{Anhang\ \arabic{section}.\arabic{subsection}}
 	\input{kapitel/anhang/anhang}
 \end{appendices}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
@@ -499,7 +495,7 @@
 % noch weitere Arten von Zusammenfassungen eines Literaturverzeichnisse zu
 % erzeugen.
 % Beispiel: [type=book,type=article]
-\printbibliography[nottype=online,heading=bibintoc,title={\langde{Literaturverzeichnis}\langen{Bibliography}}]
+\printbibliography
 
 % neue Seite für Internetquellen-Verzeichnis
 \newpage
@@ -508,8 +504,8 @@
 % Inhaltsverzeichnis, sondern gehören zum Literaturverzeichnis.
 % Die Option heading=bibintoc würde die Internetquelle als eigenen Eintrag im
 % Inhaltsverzeicnis anzeigen.
-%\printbibliography[type=online,heading=bibintoc,title={\headingNameInternetSources}]
-\printbibliography[type=online,heading=subbibliography,title={\headingNameInternetSources}]
+%\printbibliography[type=online,heading=bibintoc]
+\printbibliography[type=online,heading=subbibliography,title=Internetquellen]
 
 \input{kapitel/anhang/erklaerung}
 \end{document}
