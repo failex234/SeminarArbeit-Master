@@ -84,9 +84,9 @@
   {}{}
 
 \DeclareFieldFormat[online]{date}{\mkbibparens{#1}}
-\DeclareFieldFormat{urltime}{\addspace #1\addspace \langde{Uhr}\langen{MEZ}}
+\DeclareFieldFormat{urltime}{\addspace #1\addspace Uhr}
 \DeclareFieldFormat{urldate}{%urltime zu urldate hinzufügen
-  [\langde{Zugriff}\langen{Access}\addcolon\addspace
+  [Zugriff\addcolon\addspace
   #1\printfield{urltime}]
 }
 \DeclareFieldFormat[online]{url}{<\url{#1}>}
@@ -156,11 +156,11 @@
     \map{
       \step[notfield=translator, final]
       \step[notfield=editor, final]
-      \step[fieldset=author, fieldvalue={{{\langde{o\noexpand\adddot\addspace V\noexpand\adddot}\langen{Anon}}}}]
+      \step[fieldset=author, fieldvalue={{{o\noexpand\adddot\addspace V\noexpand\adddot}}}]
     }
     \map{
       \pernottype{online}
-      \step[fieldset=location, fieldvalue={\langde{o\noexpand\adddot\addspace O\noexpand\adddot}\langen{s\noexpand\adddot I\noexpand\adddot}}]
+      \step[fieldset=location, fieldvalue={o\noexpand\adddot\addspace O\noexpand\adddot}]
     }
   }
 }
@@ -211,7 +211,7 @@
 \renewbibmacro*{postnote}{%
   \setunit{\postnotedelim}%
   \iffieldundef{postnote}
-    {} %{\printtext{\langde{o.S\adddot}\langen{no page number}}}
+    {}
     {\printfield{postnote}}}
 
 % Abstand bei Änderung Anfangsbuchstabe ca. 1.5 Zeilen
