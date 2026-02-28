@@ -65,6 +65,33 @@
 % todo Aufgaben als Kommentare verfassen für verschiedene Editoren
 \usepackage{todonotes}
 
+\usepackage{pdfpages}
+\usepackage{tcolorbox} % or mdframed
+
+% No custom appendixpdf counter needed; use section counter
+% Environment to prevent page break between heading and PDF
+\newenvironment{absolutelynopagebreak}
+	{\par\nobreak\vfil\penalty0\vfilneg
+		\vtop\bgroup}
+	{\par\xdef\tpd{\the\prevdepth}\egroup
+		\prevdepth=\tpd}
+
+% Command for appendix PDFs with manual ToC, Roman numbering, and optional label
+\newcommand{\appendixpdf}[3][]{%
+	\clearpage
+	\stepcounter{section}%
+	\section*{Anhang~\Roman{section}: #2}
+	\ifx\relax#1\relax\else\label{#1}\fi
+	\addcontentsline{toc}{section}{Anhang~\Roman{section}: #2}
+	\includepdf[
+		pages=-,
+		frame,
+		scale=.85,
+		offset=10 -40,
+		pagecommand={\thispagestyle{plain}\pagestyle{plain}\ifnum\value{page}>0\thepage\fi}
+	]{#3}
+}
+
 % Verhindert, dass nur eine Zeile auf der nächsten Seite steht
 \setlength{\marginparwidth}{2cm}
 \usepackage[all]{nowidow}
@@ -383,13 +410,13 @@
 %-----------------------------------
 % Abbildungsverzeichnis
 %-----------------------------------
-\listoffigures
-\newpage
+%\listoffigures
+%\newpage
 %-----------------------------------
 % Tabellenverzeichnis
 %-----------------------------------
-\listoftables
-\newpage
+%\listoftables
+%\newpage
 %-----------------------------------
 % Abkürzungsverzeichnis
 %-----------------------------------
@@ -436,24 +463,6 @@
 
 %TC:ignore - ignoriert die folgnden Wörter beim Wordcount in Overleaf
 
-%-----------------------------------
-% Apendix / Anhang
-%-----------------------------------
-\newpage
-\section*{Anhang} %Überschrift "Anhang", ohne Nummerierung
-\addcontentsline{toc}{section}{Anhang} %Den Anhang ohne Nummer zum Inhaltsverzeichnis hinzufügen
-
-\begin{appendices}
-% Nachfolgende Änderungen erfolgten aufgrund von Issue 163
-\makeatletter
-\renewcommand\@seccntformat[1]{\csname the#1\endcsname:\quad}
-\makeatother
-\addtocontents{toc}{\protect\setcounter{tocdepth}{0}} %
-	\renewcommand{\thesection}{Anhang\ \arabic{section}}
-	\renewcommand\thesubsection{Anhang\ \arabic{section}.\arabic{subsection}}
-	\input{kapitel/anhang/anhang}
-\end{appendices}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
 
 %-----------------------------------
 % Literaturverzeichnis
@@ -508,6 +517,31 @@
 \printbibliography[type=online,heading=subbibliography,title=Internetquellen]
 
 \input{kapitel/anhang/erklaerung}
+
+%-----------------------------------
+% Apendix / Anhang
+%-----------------------------------
+\newpage
+% Start appendix with Roman page numbering
+\pagenumbering{Roman}
+\setcounter{page}{5}
+\section*{Anhang} %Überschrift "Anhang", ohne Nummerierung
+\addcontentsline{toc}{section}{Anhang} %Den Anhang ohne Nummer zum Inhaltsverzeichnis hinzufügen
+
+\begin{appendices}
+	\appendixpdf[app:leitfaden]{Interviewleitfaden}{kapitel/anhang/Interviewleitfaden}
+	\appendixpdf[app:roh1]{Interview 1 Transkript Rohfassung}{kapitel/anhang/Interview_1_Roh}
+	\appendixpdf[app:roh2]{Interview 2 Transkript Rohfassung}{kapitel/anhang/Interview_2_Roh}
+	\appendixpdf[app:roh3]{Interview 3 Transkript Rohfassung}{kapitel/anhang/Interview_3_Roh}
+	\appendixpdf[app:kuckartz1]{Interview 1 Transkript nach Kuckartz}{kapitel/anhang/Interview_1_Kuckartz}
+	\appendixpdf[app:kuckartz2]{Interview 2 Transkript nach Kuckartz}{kapitel/anhang/Interview_2_Kuckartz}
+	\appendixpdf[app:kuckartz3]{Interview 3 Transkript nach Kuckartz}{kapitel/anhang/Interview_3_Kuckartz}
+	\appendixpdf[app:kategorien1]{Erster Entwurf Kodierleitfaden}{kapitel/anhang/Kategorienfindung_Stufe_1}
+	\appendixpdf[app:kategorien2]{Zweiter Entwurf Kodierleitfaden}{kapitel/anhang/Kategorienfindung_Stufe_2}
+	\appendixpdf[app:kategorien3]{Dritter Entwurf Kodierleitfaden}{kapitel/anhang/Kodierleitfaden_Entwurf}
+	\appendixpdf[app:kategorienfinal]{Finaler Kodierleitfaden}{kapitel/anhang/Kodierleitfaden}
+	\appendixpdf[app:kodierung]{Kodierungsprotokoll}{kapitel/anhang/Kodierung}
+\end{appendices}
 \end{document}
 
 %TC:endignore - benötigt für Wordcount in Overleaf
